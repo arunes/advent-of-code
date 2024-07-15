@@ -1,0 +1,107 @@
+package main
+
+import (
+	"fmt"
+	"os"
+	"strconv"
+	"strings"
+)
+
+type Direction rune
+type Turn rune
+
+const (
+	North Direction = 'N'
+	East  Direction = 'E'
+	South Direction = 'S'
+	West  Direction = 'W'
+	Left  Turn      = 'L'
+	Right Turn      = 'R'
+)
+
+func getDirection(current Direction, turn Turn) Direction {
+	switch {
+	case current == North && turn == Left:
+		return West
+	case current == North && turn == Right:
+		return East
+	case current == East && turn == Left:
+		return North
+	case current == East && turn == Right:
+		return South
+	case current == South && turn == Left:
+		return East
+	case current == South && turn == Right:
+		return West
+	case current == West && turn == Left:
+		return South
+	case current == West && turn == Right:
+		return North
+	default:
+		return North
+	}
+}
+
+func move(direction Direction, steps, currentX, currentY int) (int, int) {
+	switch direction {
+	case North:
+		return currentX, currentY - steps
+	case East:
+		return currentX + steps, currentY
+	case South:
+		return currentX, currentY + steps
+	case West:
+		return currentX - steps, currentY
+	default:
+		return currentX, currentY
+
+	}
+}
+
+func abs(value int) int {
+	if value < 0 {
+		return -value
+	}
+
+	return value
+}
+
+func main() {
+	file, _ := os.ReadFile("input.txt")
+	directions := strings.Split(string(file), ",")
+	visitedPlaces := map[string]bool{"0x0": true}
+	firstVisitedPlaceFound := false
+
+	var x, y, distance int
+	facing := North
+	for i := 0; i < len(directions); i++ {
+		current := strings.TrimSpace(directions[i])
+
+		if current == "" {
+			continue
+		}
+
+		steps, _ := strconv.Atoi(current[1:])
+		turn := Turn(rune(current[0]))
+		facing = getDirection(facing, turn)
+
+		x, y = move(facing, steps, x, y)
+		distance = abs(x) + abs(y)
+		location := fmt.Sprintf("%dx%d", x, y)
+
+		// Part 2
+		if !firstVisitedPlaceFound {
+			var isVisited bool = visitedPlaces[location]
+			//println(location, isVisited)
+
+			if isVisited {
+				fmt.Printf("First re-visited place, x: %d, y: %d. Distance: %d\n", x, y, distance)
+				firstVisitedPlaceFound = true
+			} else {
+				visitedPlaces[location] = true
+			}
+		}
+	}
+
+	fmt.Printf("Final location, x: %d, y: %d. Distance: %d\n", x, y, distance)
+}
