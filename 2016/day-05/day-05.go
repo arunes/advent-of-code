@@ -59,19 +59,22 @@ func getPasswordPart2(doorId string) string {
 	for i := 0; ; i++ {
 		hash := getMD5Hash(fmt.Sprintf("%s%d", doorId, i))
 
-		if hash[:5] == "00000" {
-			position := hash[5]
-			if position >= '0' && position <= '7' {
-				position, _ := strconv.Atoi(string(position))
-				if password[position] == '_' {
-					password[position] = rune(hash[6])
-					fmt.Printf("Decoding part 2 password: %s \n", getPassword())
+		if hash[:5] != "00000" {
+			continue
+		}
 
-					if isPasswordSet() {
-						break
-					}
+		position := hash[5]
+		if position >= '0' && position <= '7' {
+			position, _ := strconv.Atoi(string(position))
+			if password[position] != '_' {
+				continue
+			}
 
-				}
+			password[position] = rune(hash[6])
+			fmt.Printf("Decoding part 2 password: %s \n", getPassword())
+
+			if isPasswordSet() {
+				break
 			}
 		}
 	}
