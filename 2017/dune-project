@@ -1,0 +1,23 @@
+(lang dune 3.17)
+
+(name aoc_2017)
+
+(generate_opam_files true)
+
+(source
+ (github username/reponame))
+
+(authors "Ali Unes")
+
+(license MIT)
+
+(documentation https://url/to/documentation)
+
+(package
+ (name aoc_2017)
+ (synopsis "Advent of code 2017")
+ (description "Learning OCaml by solving Advent of Code 2017")
+ (depends ocaml)
+ (tags
+  ("add topics" "to describe" your project)))
+
