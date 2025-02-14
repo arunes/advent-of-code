@@ -6,4 +6,6 @@ let () =
   printf "Day 02, Part 1: %s\n" Lib.Day_02.part1;
   printf "Day 02, Part 2: %s\n" Lib.Day_02.part2;
   printf "Day 03, Part 1: %s\n" Lib.Day_03.part1;
-  printf "Day 03, Part 2: %s\n" Lib.Day_03.part2
+  printf "Day 03, Part 2: %s\n" Lib.Day_03.part2;
+  printf "Day 04, Part 1: %s\n" Lib.Day_04.part1;
+  printf "Day 04, Part 2: %s\n" Lib.Day_04.part2
