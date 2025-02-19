@@ -20,3 +20,6 @@ let () =
 
   (*printf "Day 06, Part 1: %s\n" Lib.Day_06.part1;*)
   (*printf "Day 06, Part 2: %s\n" Lib.Day_06.part2;*)
+
+  printf "Day 07, Part 1: %s\n" Lib.Day_07.part1;
+  printf "Day 07, Part 2: %s\n" Lib.Day_07.part2;

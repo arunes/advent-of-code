@@ -12,23 +12,13 @@ let get_max_pos lst =
   in
   calc 0 0 0 lst
 
-let rec string_of_list = function 
-  | [] -> ""
-  | hd :: tl -> string_of_int hd ^ "," ^ string_of_list tl
-
-let rec has_list_in_list lst all idx = match all with
-  | [] -> -1
-  | hd :: tl ->
-      let found = List.for_all (fun a -> a) @@ List.mapi (fun i e -> e = (List.nth lst i)) hd in
-      if found then idx else has_list_in_list lst tl (idx + 1)
-
 let find_duplicate is_part_2 = 
   let length = input |> List.length in
   let get_next_index idx = if idx + 1 = length then 0 else idx + 1 in
 
   let rec redistribute cycle remaining current_index current_list completed_lists = 
     (* if remaining is zero and current list is in completed lists, return cycle, otherwise keep redistributing *)
-    let found_dup_index = if remaining = 0 then has_list_in_list current_list completed_lists 0 else -1 in
+    let found_dup_index = if remaining = 0 then Utils.has_list_in_list current_list completed_lists 0 else -1 in
     if remaining = 0 && found_dup_index > -1 then
       if is_part_2 then found_dup_index + 1 else cycle
     else
